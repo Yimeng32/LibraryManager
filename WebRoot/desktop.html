@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>图书管理系统</title>
+
+<link rel="stylesheet" type="text/css" href="js/ext/resources/css/ext-all-neptune.css" />
+<link rel="stylesheet" type="text/css" href="js/css/desktop.css">
+<link rel="stylesheet" type="text/css" href="js/css/shortcut.css">
+
+<script type="text/javascript" src="js/ext/ext-all.js"></script>
+<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+
+<script type="text/javascript">	
+	Ext.Loader.setPath({
+		'Ext.ux.desktop':'js/core',
+		'MyDesktop.modules':'modules/view',
+		'MyDesktop.modules.store':'modules/store',
+		'MyDesktop.modules.model':'modules/model',
+		'MyDesktop':''
+	});
+
+    Ext.require('MyDesktop.App');
+
+    var myDesktopApp;
+    Ext.onReady(function () {
+        myDesktopApp = new MyDesktop.App();
+    });
+	
+</script>
+</head>
+<body>
+	<a href="http://www.sencha.com" target="_blank" alt="Powerd by Ext Js" id="poweredby">
+		<div></div>
+	</a>
+</body>
+</html>

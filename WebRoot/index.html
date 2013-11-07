@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户登录</title>
+<link href="resources/css/login.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="login">
+    	<div id="header">
+        </div>
+        <div id="content">
+        	<div class="left_main">
+            	<div class="newtitle"></div>
+                <div class="news">
+                	图书管理系统
+                </div>
+                <div class="help_center">
+                	<h3><a href="#">帮助中心</a></h3>
+                    <p>QQ:374644943</p>
+                </div>
+                <div class="bbs">
+                	<h3><a href="#">技术论坛</a></h3>
+        			<p>筹建中。。。。</p>
+                </div>
+            </div>
+            <div class="right_main">
+            	<form action="/ExtJsDesktopBackup/login.action" method="post">
+                	<div class="input_box">
+                    	<label>用户名:</label>
+                        <input type="text" name="user.username" id="username"/>
+                    </div>
+                    <div class="input_box">
+                    	<label>密　码:</label>
+                        <input type="password" name="user.password" id="userpass" />
+                    </div>
+                    <div class="short_input">
+                    	<label>验证码:</label>
+                    	<input style="text-transform: uppercase;" id="vdcode" type="text" name="valCode"/>    
+                        <img class="yzm" id="vdimgck" src="valcodeServlet" />
+                    </div>
+                	<div>
+                    	<input type="submit" id='submit' name="login" value="登录" class="login_btn"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+.access-manage {
+    background-image: url(../images/access.png);
+}
+
+.baseinfo-manage {
+    background-image: url(../images/baseinfo.png);
+}
+
+.newbook-manage {
+	width:45px;
+    background-image: url(../images/newbook-order.png);
+}
+
+
+.book-borrow-manage {
+    background-image: url(../images/book-borrow.png);
+}
+
+.printer-paper {
+    background-image: url(../images/printer.png);
+}
+
+.sys-manage {
+   	background-image: url(../images/sys.png);
+}

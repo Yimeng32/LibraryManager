@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.lygeport.domain">
+	<class name="Menu" table="Menu">
+		<!-- 主键生成策略 -->
+		<id name="id" type="java.lang.Integer" >
+			<generator class="native"/>
+		</id>
+		<property name="menuName" type="java.lang.String" >
+			<column name="menuName" length="64"/>
+		</property>
+		<property name="parentID" type="java.lang.Integer" >
+			<column name="parentID" length="64"/>
+		</property>
+		<property name="cls" type="java.lang.String" >
+			<column name="cls" length="64"/>
+		</property>
+	</class>
+</hibernate-mapping>

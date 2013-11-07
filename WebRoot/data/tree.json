@@ -1,0 +1,24 @@
+[{
+	text:'图书信息',
+	name:'forms',
+	expanded:true,
+	children:[
+		{leaf:true,text:'图书类别管理',name:'login'},
+		{leaf:true,text:'图书信息管理',name:'register'}
+	]
+},{
+	text:'读者信息',
+	name:'toolbars',
+	expanded:true,
+	children:[
+		{leaf:true,text:'读者类别管理',name:'ReaderTypeGrid'},
+		{leaf:true,text:'读者信息管理',name:'ReaderInfoGrid'}
+	]
+},{
+	text:'借阅信息',
+	name:'record',
+	expanded:true,
+	children:[
+		{leaf:true,text:'借阅信息管理',name:'recordList'}
+	]
+}]

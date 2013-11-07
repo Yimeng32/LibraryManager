@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ExtJsDesktopBackup"
+  id="myeclipse.1382491166280"
+  context-root="/ExtJsDesktopBackup"
+  j2ee-spec="6.0"
+  archive="ExtJsDesktopBackup.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

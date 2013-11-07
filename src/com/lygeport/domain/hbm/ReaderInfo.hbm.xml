@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.lygeport.domain">
+	<class name="ReaderInfo" table="LIBRARY_READERINFO">
+		
+		<!-- 主键生成策略 -->
+		<id name="id" type="java.lang.Integer" >
+			<generator class="native"/>
+		</id>
+		<property name="readerNo" type="java.lang.String">
+			<column name="readerno" length="60" />
+		</property>
+		<property name="readerName" type="java.lang.String">
+			<column name="readername" length="40" />
+		</property>
+		<property name="readerType" type="java.lang.String">
+			<column name="readertype" length="20" />
+		</property>
+		<property name="phoneNumber" type="java.lang.String">
+			<column name="phonenumber" length="20" />
+		</property>
+		<property name="regDate" type="java.util.Date">
+			<column name="regdate" />
+		</property>
+		<property name="remark" type="java.lang.String">
+			<column name="remark" length="100" />
+		</property>
+	</class>
+</hibernate-mapping>

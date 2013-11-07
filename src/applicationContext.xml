@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+           
+	<!-- 配置一个数据源 -->
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+		<property name="username" value="root" />
+		<property name="password" value="123" />
+		<!--
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.20.1.9:1521:deva" />
+		<property name="username" value="jmjiao" />
+		<property name="password" value="easido" />
+		-->
+		
+		<!-- 连接池启动时的初始值 -->
+		<property name="initialSize" value="3"/>
+		<!-- 连接池最大值 -->
+		<property name="maxActive" value="500"/>
+		<!-- 最大空闲值，当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接释放一部分 ，一直减少到maxldle为止-->
+		<property name="maxIdle" value="2"/>
+		<!-- 最小空闲值，当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰 来时来不及申请-->
+		<property name="minIdle" value="1"/>
+	</bean>
+	
+	
+	<!-- 配置会话工厂 -->
+	<!-- hibernate.format_sql=true -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- 设置数据源 -->
+		<property name="dataSource" ref="myDataSource"/>
+		<!-- 接管了hibernate对象映射文件 -->
+		<property name="mappingResources">
+			<list>
+				<value>com/lygeport/domain/hbm/Employee.hbm.xml</value>
+				<value>com/lygeport/domain/hbm/User.hbm.xml</value>
+				<value>com/lygeport/domain/hbm/Menu.hbm.xml</value>
+				<value>com/lygeport/domain/hbm/ReaderInfo.hbm.xml</value>
+			</list>
+		</property>
+		<!-- hibernate.dialect=org.hibernate.dialect.OracleDialect-->
+		<!-- hibernate.dialect=org.hibernate.dialect.MySQL5Dialect -->
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+				hibernate.hbm2ddl.auto=update
+				hibernate.show_sql=true
+			</value>
+		</property>
+	</bean>
+	<!-- 配置事务管理器，统一管理sessionFactory的事务 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<aop:config>
+		<aop:pointcut id="serviceMethods"
+			expression="execution(* com.lygeport.service.impl.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="NOT_SUPPORTED" read-only="true" />			
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>	
+	<!-- 启用事务注解 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+	
+	<!-- 配置EmployeeService对象 -->
+	<bean id="employeeDao" class="com.lygeport.dao.impl.EmployeeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="employeeService" class="com.lygeport.service.impl.EmployeeServiceImpl">
+		<property name="employeeDao" ref="employeeDao" />
+	</bean>
+	<bean id="employeeAction" class="com.lygeport.action.EmployeeAction" scope="prototype">
+		<property name="employeeService" ref="employeeService"></property>
+	</bean>
+	
+	<bean id="userDao" class="com.lygeport.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="loginService" class="com.lygeport.service.impl.LoginServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<bean id="loginAction" class="com.lygeport.action.LoginAction">
+		<property name="loginService" ref="loginService"></property>
+		<property name="employeeService" ref="employeeService"></property>
+	</bean>
+	
+	<bean id="menuDao" class="com.lygeport.dao.impl.MenuDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="menuService" class="com.lygeport.service.impl.MenuServiceImpl">
+		<property name="menuDao" ref="menuDao"></property>
+	</bean>
+	<bean id="menuAction" class="com.lygeport.action.MenuAction">
+		<property name="menuService" ref="menuService"></property>
+	</bean>
+	
+	<bean id="readerInfoDao" class="com.lygeport.dao.impl.ReaderInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="readerInfoService" class="com.lygeport.service.impl.ReaderInfoServiceImpl">
+		<property name="readerInfoDao" ref="readerInfoDao"></property>
+	</bean>
+	<bean id="readerInfoAction" class="com.lygeport.action.ReaderInfoAction" scope="prototype">
+		<property name="readerInfoService" ref="readerInfoService"></property>
+	</bean>
+</beans>
